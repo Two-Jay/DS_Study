@@ -4,7 +4,6 @@
 typedef struct ArrayListNodeType
 {
 	int data;
-	int isAssigned;
 } ArrayListNode;
 
 typedef struct ArrayListType
