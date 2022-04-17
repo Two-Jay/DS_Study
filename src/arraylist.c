@@ -46,12 +46,16 @@ int addALElement(ArrayList* pList, int position, ArrayListNode element) {
     if (isArrayListFull(pList) == TRUE
         || isValidPosition(pList, position, FLAG_ADD) == FALSE)
         return FALSE;
-    if (position == pList->currentElementCount - 1)
+    if (position == pList->currentElementCount)
     {
         pList->pElement[position].data = element.data;
         pList->currentElementCount++;
     } else {
-
+        for (int i = pList->currentElementCount; i >= position; i--) {
+            pList->pElement[i + 1].data = pList->pElement[i].data;
+        }
+        pList->pElement[position].data = element.data;
+        pList->currentElementCount++;
     }
     return TRUE;
 }

@@ -1,13 +1,14 @@
 NAME			= test
 CC				= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
 
 INCLUDE			= -I./includes/
 RM				= rm -rf
 OBJDIR			= ./obj/
 SRCDIR			= ./src/
+DEBUG			= -g3 -fsanitize=address
 MAIN			= main.c
-SRCS			= arraylist.c
+SRCS			= arraylist.c linkedlist.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))
@@ -28,6 +29,15 @@ $(OBJDIR)%.o : $(SRCDIR)%.c
 
 $(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
 				$(CC) $(CFLAGS) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
+				@echo "\033[0;92m* $(NAME) was created *\033[0m"
+
+debug:			objd_build	$(NAME)
+
+objd_build:
+				mkdir -p $(OBJDIR)
+
+$(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
+				$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
 				@echo "\033[0;92m* $(NAME) was created *\033[0m"
 
 clean:

@@ -13,14 +13,18 @@ typedef struct LinkedListType
 	ListNode headerNode;		// 헤더 노드(Header Node)
 } LinkedList;
 
+
 LinkedList* createLinkedList();
 int addLLElement(LinkedList* pList, int position, ListNode element);
+int addLLData(LinkedList* pList, int position, int data);
 int removeLLElement(LinkedList* pList, int position);
 ListNode* getLLElement(LinkedList* pList, int position);
 
 void clearLinkedList(LinkedList* pList);
 int getLinkedListLength(LinkedList* pList);
 void deleteLinkedList(LinkedList* pList);
+
+ListNode *createListNode(int data);
 #endif
 
 #ifndef _COMMON_LIST_DEF_
@@ -28,6 +32,8 @@ void deleteLinkedList(LinkedList* pList);
 
 #define TRUE		1
 #define FALSE		0
+#define FLAG_ADD	2
+#define FLAG_OTHER	4
 
 
 #endif
