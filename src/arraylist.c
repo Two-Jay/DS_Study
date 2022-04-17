@@ -27,17 +27,28 @@ void deleteArrayList(ArrayList *pList) {
     free(pList);
 }
 
+static int isValidPosition(ArrayList* pList, int position, int flag) {
+    if (flag & FLAG_ADD) {
+        return pList->currentElementCount < position || position < 0 ? FALSE : TRUE;
+    }
+    if (flag & FLAG_OTHER){
+        return pList->currentElementCount <= position || position < 0 ? FALSE : TRUE;
+    }
+    return FALSE;
+}
+
+static int isArrayNodeAssigned(ArrayList *pList, int position) {
+    return pList->pElement[position].isAssigned == TRUE ? TRUE : FALSE;
+}
+
 int isArrayListFull(ArrayList *pList) {
     return pList->maxElementCount == pList->currentElementCount ? TRUE : FALSE;
 }
 
-int isArrayNodeAssigned(ArrayList *pList, int position) {
-    return pList->pElement[position].isAssigned == TRUE ? TRUE : FALSE;
-}
 
 int addALElement(ArrayList* pList, int position, ArrayListNode element) {
-    if (isArrayListFull(pList) == TRUE ||
-        position > pList->currentElementCount)
+    if (isArrayListFull(pList) == TRUE
+        || isValidPosition(pList, position, FLAG_ADD) == FALSE)
         return FALSE;
     pList->pElement[position].data = element.data;
     pList->pElement[position].isAssigned = TRUE;
@@ -46,8 +57,8 @@ int addALElement(ArrayList* pList, int position, ArrayListNode element) {
 }
 
 int addALData(ArrayList* pList, int position, int data) {
-    if (isArrayListFull(pList) == TRUE ||
-        position > pList->currentElementCount)
+    if (isArrayListFull(pList) == TRUE
+        || isValidPosition(pList, position, FLAG_ADD) == FALSE)
         return FALSE;
     pList->pElement[position].data = data;
     pList->pElement[position].isAssigned = TRUE;
@@ -55,13 +66,25 @@ int addALData(ArrayList* pList, int position, int data) {
     return TRUE;
 }
 
-// int removeALElement(ArrayList* pList, int position) {
-    
-// }
+int removeALElement(ArrayList* pList, int position) {
+    ArrayListNode *nptr = pList->pElement;
+    if (isArrayNodeAssigned(pList, position) == FALSE
+        || isValidPosition(pList, position, FLAG_OTHER) == FALSE)
+        return FALSE;
+    int i = position;
+    while (i < pList->currentElementCount - 1) {
+        nptr[i].data = nptr[i + 1].data;
+        i++;
+    }
+    nptr[i].data = 0;
+    nptr[i].isAssigned = FALSE;
+    pList->currentElementCount--;
+    return TRUE;
+}
 
 ArrayListNode* getALElement(ArrayList* pList, int position) {
     // assign
-    if (position < 0 || pList->currentElementCount <= position)
+    if (isValidPosition(pList, position, FLAG_OTHER) == FALSE)
         return NULL;
     return &pList->pElement[position];
 }

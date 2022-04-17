@@ -17,10 +17,20 @@ int main(void)
     ArrayList *al = createArrayList(TEST_SMALL_MAX);
     printf("max : %d\ncurrent : %d\n", al->maxElementCount, al->currentElementCount);
     printf("%d\n", isArrayListFull(al));
-    for (int i = 0; i < 5; i++) {
-        addALData(al, i, i * 5);
+    for (int i = 0; i < TEST_SMALL_MAX; i++) {
+        addALData(al, i, i + 5);
     }
-    displayArrayList(al);
+    printf("Length : %d\n", getArrayListLength(al));    
+    removeALElement(al, 9);
+    test_printAllAL(al);
     printf("Length : %d\n", getArrayListLength(al));
+    removeALElement(al, 5);
+    test_printAllAL(al);
+    printf("Length : %d\n", getArrayListLength(al));
+    removeALElement(al, 0);
+    test_printAllAL(al);
+    printf("Length : %d\n", getArrayListLength(al));
+    // clearArrayList(al);
+    system("leaks test");
     return 0;
 }

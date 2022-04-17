@@ -25,8 +25,6 @@ void displayArrayList(ArrayList* pList);
 void clearArrayList(ArrayList* pList);
 int getArrayListLength(ArrayList* pList);
 
-int isArrayNodeAssigned(ArrayList *pList, int position);
-
 #endif
 
 #ifndef _COMMON_LIST_DEF_
@@ -34,5 +32,7 @@ int isArrayNodeAssigned(ArrayList *pList, int position);
 
 #define TRUE		1
 #define FALSE		0
+#define FLAG_ADD	2
+#define FLAG_OTHER	4
 
 #endif
