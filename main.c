@@ -17,15 +17,20 @@ void test_printAllAL(ArrayList *al) {
 }
 
 void test_printAllLL(LinkedList *ll) {
+    if (!ll)
+    {
+        printf("there is no ll.....");
+        return ;
+    }
     printf("====================\n");
-    ListNode *nptr = ll->headerNode.pLink;
+    ListNode *nptr = &(ll->headerNode);
     for (int i = 0; i < ll->currentElementCount; i++) {
+        nptr = nptr->pLink;
         if (i < ll->currentElementCount - 1) {
-            printf("[%d]", nptr->data);
+            printf("[%d] - ", nptr->data);
         }
         else 
-            printf("[%d] - ", nptr->data);
-        nptr = nptr->pLink;
+            printf("[%d]", nptr->data);
     }
     printf("\n");
     printf("current : %d\n", ll->currentElementCount);
@@ -48,8 +53,9 @@ int linked_test_main(void)
 {
     LinkedList *ll = createLinkedList();
     for (int i = 0; i < TEST_SMALL_MAX; i++) {
-        addLLData(ll, 0, i + 5);
+        addLLData(ll, i, i + 5);
     }
+    deleteLinkedList(ll);
     test_printAllLL(ll);
     system("leaks test");
     return 0;

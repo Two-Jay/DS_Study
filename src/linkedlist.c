@@ -32,69 +32,91 @@ ListNode *createListNode(int data) {
     return ln;
 }
 
-
-
 ListNode* getLLElement(LinkedList* pList, int position) {
     if (position >= pList->currentElementCount)
         return NULL;
-    ListNode *nptr = pList->headerNode.pLink;
+    ListNode *nptr = &(pList->headerNode);
+    for (int i = 0;i < position;i++) {
+        nptr = nptr->pLink;
+    }
     return nptr;
 }
 
-ListNode* getLLNthNode(LinkedList* pList, int position) {
-    ListNode* ln = pList->headerNode.pLink;
-    printf("ln ptr = %p\n", ln);
-    for (int i = 0; i < position; i++) {
-        ln = ln->pLink;
-        printf("position [%d] | i [%d] | ln ptr = %p\n", position, i, ln);
-    }
-    return ln;
-}
-
 ListNode* getLLLastNode(LinkedList* pList) {
-    return getLLNthNode(pList, pList->currentElementCount - 1);
+    ListNode *nptr = &(pList->headerNode);
+    while (nptr->pLink != NULL) {
+        nptr = nptr->pLink;
+    }
+    return nptr;
 }
-
 
 int addLLElement(LinkedList* pList, int position, ListNode element) {
     if (isValidPosition(pList, position, FLAG_ADD) == FALSE)
         return FALSE;
-    if (position == 0 || position == pList->currentElementCount) {
-        ListNode *nptr = pList->headerNode.pLink;
-        while (nptr->pLink != NULL) {
-            nptr = nptr->pLink;
-        }
-        *nptr = element;
+
+    if (pList->currentElementCount == position) {
+        ListNode *ln = getLLLastNode(pList);
+        ln->pLink = &element;
         pList->currentElementCount++;
-        return TRUE;
     } else {
-        ListNode *prev_nptr = getLLNthNode(pList, position);
-        ListNode *next_nptr = getLLNthNode(pList, position + 1);
-        prev_nptr->pLink = &element;
-        element.pLink = next_nptr;
+        ListNode *prev_ln = getLLElement(pList, position - 1);
+        ListNode *next_ln = prev_ln->pLink;
+        prev_ln->pLink = &element;
         pList->currentElementCount++;
-        return TRUE;
+        prev_ln->pLink->pLink = next_ln;
     }
+    return TRUE;
 }
 
 int addLLData(LinkedList* pList, int position, int data) {
     if (isValidPosition(pList, position, FLAG_ADD) == FALSE)
         return FALSE;
-    if (position == 0 || position == pList->currentElementCount) {
-        ListNode *nptr = pList->headerNode.pLink;
-        while (nptr->pLink != NULL) {
-            nptr = nptr->pLink;
-        }
-        nptr = createListNode(data);
+    if (pList->currentElementCount == position) {
+        ListNode *ln = getLLLastNode(pList);
+        ln->pLink = createListNode(data);
         pList->currentElementCount++;
-        return TRUE;
     } else {
-        ListNode *prev_nptr = getLLNthNode(pList, position);
-        ListNode *next_nptr = getLLNthNode(pList, position + 1);
-        prev_nptr->pLink = createListNode(data);
-        prev_nptr->pLink->pLink = next_nptr;
+        ListNode *prev_ln = getLLElement(pList, position - 1);
+        ListNode *next_ln = prev_ln->pLink;
+        prev_ln->pLink = createListNode(data);
         pList->currentElementCount++;
-        return TRUE;
+        prev_ln->pLink->pLink = next_ln;
     }
+    return TRUE;
 }
 
+int getLinkedListLength(LinkedList* pList) {
+    return pList->currentElementCount;
+}
+
+int removeLLElement(LinkedList* pList, int position) {
+    if (isValidPosition(pList, position, FLAG_OTHER) == FALSE)
+        return FALSE;
+    if (pList->currentElementCount - 1 == position) {
+        ListNode *ln = getLLElement(pList, position);
+        free(ln->pLink);
+        ln->pLink = NULL;
+        pList->currentElementCount--;
+    } else {
+        ListNode *prev_ln = getLLElement(pList, position - 1);
+        ListNode *next_ln = prev_ln->pLink->pLink;
+        free(prev_ln->pLink);
+        pList->currentElementCount--;
+        prev_ln->pLink = next_ln;
+    }
+    return TRUE;
+}
+
+void clearLinkedList(LinkedList* pList) {
+    if (pList->currentElementCount == 0)
+        return ;
+    for (int i = pList->currentElementCount; i >= 0; i--) {
+        removeLLElement(pList, i);
+    }
+};
+
+void deleteLinkedList(LinkedList* pList) {
+    clearLinkedList(pList);
+    free(pList);
+    pList = NULL;
+};

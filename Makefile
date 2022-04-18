@@ -1,4 +1,5 @@
 NAME			= test
+DNAME			= test_debug
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 
@@ -33,10 +34,7 @@ $(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
 
 debug:			objd_build	$(NAME)
 
-objd_build:
-				mkdir -p $(OBJDIR)
-
-$(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
+$(DNAME):		$(SRCS_OBJS) $(MAIN_OBJS)
 				$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
 				@echo "\033[0;92m* $(NAME) was created *\033[0m"
 
