@@ -1,5 +1,6 @@
 #include "./includes/arraylist.h"
 #include "./includes/linkedlist.h"
+#include "./includes/doublylist.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,6 +8,10 @@
 #define TEST_SMALL_ZERO 0
 
 void test_printAllAL(ArrayList *al) {
+    if (!al) {
+        printf("there is no al.....");
+        return ;
+    }
     printf("====================\n");
     for (int i = 0; i < al->maxElementCount; i++) {
         printf("%d ", al->pElement[i].data);
@@ -17,12 +22,12 @@ void test_printAllAL(ArrayList *al) {
 }
 
 void test_printAllLL(LinkedList *ll) {
-    if (!ll)
-    {
+    if (!ll) {
         printf("there is no ll.....");
         return ;
     }
     printf("====================\n");
+    printf("current : %d\n", ll->currentElementCount);
     ListNode *nptr = &(ll->headerNode);
     for (int i = 0; i < ll->currentElementCount; i++) {
         nptr = nptr->pLink;
@@ -33,7 +38,6 @@ void test_printAllLL(LinkedList *ll) {
             printf("[%d]", nptr->data);
     }
     printf("\n");
-    printf("current : %d\n", ll->currentElementCount);
 }
 
 int array_test_main(void)
@@ -44,7 +48,7 @@ int array_test_main(void)
         addALData(al, 0, i + 5);
     }
     test_printAllAL(al);
-    // clearArrayList(al);
+    clearArrayList(al);
     system("leaks test");
     return 0;
 }
@@ -53,7 +57,8 @@ int linked_test_main(void)
 {
     LinkedList *ll = createLinkedList();
     for (int i = 0; i < TEST_SMALL_MAX; i++) {
-        addLLData(ll, i, i + 5);
+        ListNode *ln = createListNode(i + 5);
+        addLLElement(ll, 0, *ln);
     }
     deleteLinkedList(ll);
     test_printAllLL(ll);
@@ -63,6 +68,7 @@ int linked_test_main(void)
 
 int main(void)
 {
+    array_test_main();
     linked_test_main();
     return 0;
 }

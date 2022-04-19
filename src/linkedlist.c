@@ -18,7 +18,6 @@ LinkedList* createLinkedList() {
     ll = (LinkedList *)calloc(sizeof(LinkedList), 1);
     if (!ll)
         return NULL;
-     
     return ll;
 }
 
@@ -53,7 +52,6 @@ ListNode* getLLLastNode(LinkedList* pList) {
 int addLLElement(LinkedList* pList, int position, ListNode element) {
     if (isValidPosition(pList, position, FLAG_ADD) == FALSE)
         return FALSE;
-
     if (pList->currentElementCount == position) {
         ListNode *ln = getLLLastNode(pList);
         ln->pLink = &element;
