@@ -74,7 +74,31 @@ int removeDLElement(DoublyList* pList, int position) {
         nptr2->pLLink = nptr;
         pList->currentElementCount--;
         return TRUE;
-    }    
+    }
 };
 
+void clearDoublyList(DoublyList* pList) {
+    for (int i = pList->currentElementCount;i > 0; i--) {
+        removeDLElement(pList, i);
+    }
+};
 
+void deleteDoublyList(DoublyList* pList) {
+    clearDoublyList(pList);
+    free(pList);
+}
+
+void displayDoublyList(DoublyList *pList) {
+    if (!pList) {
+        printf("there is no ll.....");
+        return ;
+    }
+    printf("====================\n");
+    printf("current : %d\n", pList->currentElementCount);
+    DoublyListNode *nptr = &(pList->headerNode);
+    while (nptr->pRLink != NULL) {
+        nptr = nptr->pRLink;
+        printf("[%d]", nptr->data);
+    }
+    printf("\n");
+}
