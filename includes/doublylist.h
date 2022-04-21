@@ -10,8 +10,8 @@ typedef struct DoublyListNodeType
 
 typedef struct DoublyListType
 {
-	int	currentElementCount;		// ÇöÀç ÀúÀåµÈ ¿ø¼ÒÀÇ °³¼ö
-	DoublyListNode	headerNode;		// Çì´õ ³ëµå(Header Node)
+	int	currentElementCount;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	DoublyListNode	headerNode;		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(Header Node)
 } DoublyList;
 
 DoublyList* createDoublyList();
@@ -23,6 +23,8 @@ int getDoublyListLength(DoublyList* pList);
 DoublyListNode* getDLElement(DoublyList* pList, int position);
 void displayDoublyList(DoublyList* pList);
 
+DoublyListNode *createDoublyNode(int data);
+
 #endif
 
 #ifndef _COMMON_LIST_DEF_
@@ -30,5 +32,7 @@ void displayDoublyList(DoublyList* pList);
 
 #define TRUE		1
 #define FALSE		0
+#define FLAG_ADD	2
+#define FLAG_OTHER	4
 
 #endif
