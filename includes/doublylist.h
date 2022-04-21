@@ -16,7 +16,7 @@ typedef struct DoublyListType
 
 DoublyList* createDoublyList();
 void deleteDoublyList(DoublyList* pList);
-int addDLElement(DoublyList* pList, int position, DoublyListNode element);
+int addDLElement(DoublyList* pList, int position, DoublyListNode *element);
 int removeDLElement(DoublyList* pList, int position);
 void clearDoublyList(DoublyList* pList);
 int getDoublyListLength(DoublyList* pList);
