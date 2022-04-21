@@ -9,18 +9,19 @@ typedef struct	CircledListNodeType {
 
 typedef struct	CircledListType {
 	int	currentElementCount;
-	CircledListNodeType	*headerNodePtr;
+	CircledListNode	*headerNodePtr;
 }				CircledList;
 
 CircledList* createCircledList();
 void deleteCircledList(CircledList* pList);
-int addDLElement(CircledList* pList, int position, CircledListNode *element);
-int removeDLElement(CircledList* pList, int position);
+int addCLElement(CircledList* pList, int position, CircledListNode *element);
+int removeCLElement(CircledList* pList, int position);
 void clearCircledList(CircledList* pList);
 int getCircledListLength(CircledList* pList);
-CircledListNode* getDLElement(CircledList* pList, int position);
 void displayCircledList(CircledList* pList);
 CircledListNode *createCircledNode(int data);
+CircledListNode* getCLLastNode(CircledList* pList);
+CircledListNode* getCLElement(CircledList* pList, int position);
 
 #endif
 
