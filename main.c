@@ -26,6 +26,9 @@ void DLE_test_main(void) {
     for (int i = 0; i < TEST_LENGTH; i++) {
         addDLElement(dll, i, createDoublyNode(i + 10));
     }
+    for (int i = 0; i < 3; i++) {
+        removeDLElement(dll, 3);
+    }
     test_printAllDLE(dll);
 }
 

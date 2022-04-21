@@ -58,4 +58,23 @@ int addDLElement(DoublyList* pList, int position, DoublyListNode *element) {
     }
 }
 
+int removeDLElement(DoublyList* pList, int position) {
+    if (isValidPosition(pList, position) == FALSE) return FALSE;
+    if (position == pList->currentElementCount) {
+        DoublyListNode *nptr = getDLElement(pList, position - 1);
+        free(nptr->pRLink);
+        nptr->pRLink = NULL;
+        pList->currentElementCount--;
+        return TRUE;
+    } else {
+        DoublyListNode *nptr = getDLElement(pList, position - 1);
+        DoublyListNode *nptr2 = nptr->pRLink->pRLink;
+        free(nptr->pRLink);
+        nptr->pRLink = nptr2;
+        nptr2->pLLink = nptr;
+        pList->currentElementCount--;
+        return TRUE;
+    }    
+};
+
 
