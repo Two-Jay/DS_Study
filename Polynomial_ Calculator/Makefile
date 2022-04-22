@@ -1,15 +1,14 @@
-NAME			= Calculator.exe
+NAME			= Calculator
 DNAME			= test_debug
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
-
 INCLUDE			= -I./includes/
 RM				= rm -rf
 OBJDIR			= ./obj/
 SRCDIR			= ./src/
 DEBUG			= -g3 -fsanitize=address
 MAIN			= main.c
-SRCS			= arraylist.c linkedlist.c doublylist.c circledlist.c
+SRCS			= polynomialList.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))

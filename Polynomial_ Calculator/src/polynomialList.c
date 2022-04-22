@@ -15,13 +15,22 @@ PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char chara
     PolynomialListNode *ret = (PolynomialListNode *)calloc(sizeof(PolynomialListNode), 1);
     if (!ret) return NULL;
     ret->Coefficient = Coefficient;
+    ret->sign = 1;
+    if (Coefficient < 0) {
+        ret->Coefficient * -1;
+        ret->sign = -1;
+    }
     ret->degree = degree;
     ret->character = character;
     return ret;
 }
 
+PolynomialListNode *mergePolynomialNode(PolynomialListNode* a,PolynomialListNode* b) {
+    
+}
+
 PolynomialListNode* getDLLLastNode(PolynomialList* pList) {
-    PolynomialListNode *nptr = &(pList->headerNode);
+    PolynomialListNode *nptr = pList->headerNode;
     while (nptr->pRLink != NULL) {
         nptr = nptr->pRLink;
     }
@@ -29,12 +38,22 @@ PolynomialListNode* getDLLLastNode(PolynomialList* pList) {
 }
 
 PolynomialListNode* getPLElement(PolynomialList* pList, int position) {
-    PolynomialListNode *nptr = &(pList->headerNode);
+    PolynomialListNode *nptr = pList->headerNode;
     for (int i = 0; i < position; i++) {
         nptr = nptr->pRLink;
     }
     return nptr;
 }
+
+PolynomialListNode* getPLElementByDegree(PolynomialList* pList, int degree) {
+    PolynomialListNode *nptr = pList->headerNode;
+    for (int i = 0; i < pList->currentElementCount; i++) {
+        if (nptr->degree == degree) return nptr;
+        nptr = nptr->pRLink;
+    }
+    return nptr->degree == degree ? nptr : NULL;
+}
+
 
 int getPolynomialListLength(PolynomialList *pList) {
     return pList->currentElementCount;
@@ -42,10 +61,9 @@ int getPolynomialListLength(PolynomialList *pList) {
 
 int addPLElement(PolynomialList* pList, int position, PolynomialListNode *element) {
     if (isValidPosition(pList, position) == FALSE) return FALSE;
-    if (position == pList->currentElementCount) {
-        PolynomialListNode *nptr = getDLLLastNode(pList);
-        nptr->pRLink = element;
-        element->pLLink = nptr;
+    if (pList->currentElementCount == 0) {
+        pList->headerNode = element;
+        element->pRLink = pList->headerNode;
         pList->currentElementCount++;
         return TRUE;
     } else {
@@ -58,14 +76,15 @@ int addPLElement(PolynomialList* pList, int position, PolynomialListNode *elemen
         pList->currentElementCount++;
         return TRUE;
     }
+    return FALSE;
 }
 
 int removePLElement(PolynomialList* pList, int position) {
     if (isValidPosition(pList, position) == FALSE) return FALSE;
-    if (position == pList->currentElementCount) {
-        PolynomialListNode *nptr = getPLElement(pList, position - 1);
-        free(nptr->pRLink);
-        nptr->pRLink = NULL;
+    if (position == 1) {
+        PolynomialListNode *nptr = pList->headerNode;
+        free(nptr);
+        nptr = NULL;
         pList->currentElementCount--;
         return TRUE;
     } else {
@@ -78,6 +97,25 @@ int removePLElement(PolynomialList* pList, int position) {
         return TRUE;
     }
 };
+
+int removePLElementByNodePTR(PolynomialList* pList, PolynomialListNode* nptr) {
+    if (nptr) {
+        PolynomialListNode *prev_nptr = nptr->pLLink;
+        PolynomialListNode *next_nptr = nptr->pRLink;
+        free(nptr);
+        prev_nptr->pRLink = next_nptr;
+        next_nptr->pLLink = prev_nptr;
+        pList->currentElementCount--;
+        return TRUE;
+    }
+    return FALSE;
+};
+
+int removePLEByDegree(PolynomialList* pList, int degree) {
+    PolynomialListNode *nptr = getPLElementByDegree(pList, degree);
+    return removePLElementByNodePTR(pList, nptr);
+}
+
 
 void clearPolynomialList(PolynomialList* pList) {
     for (int i = pList->currentElementCount;i > 0; i--) {
@@ -97,10 +135,10 @@ void displayPolynomialList(PolynomialList *pList) {
     }
     printf("====================\n");
     printf("current : %d\n", pList->currentElementCount);
-    PolynomialListNode *nptr = &(pList->headerNode);
+    PolynomialListNode *nptr = pList->headerNode;
     while (nptr->pRLink != NULL) {
         nptr = nptr->pRLink;
-        printf("[%d]", nptr->data);
+        printf("[%d%c^%d] ", nptr->Coefficient, nptr->character, nptr->degree);
     }
     printf("\n");
 }

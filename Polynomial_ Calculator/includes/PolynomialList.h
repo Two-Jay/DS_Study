@@ -5,6 +5,7 @@ typedef struct  PolynomialListNodeType
 {
 	int Coefficient;
     int degree;
+	int sign; // 1 or -1
     char character;
 	struct PolynomialListNodeType* pLLink;
 	struct PolynomialListNodeType* pRLink;
@@ -13,7 +14,7 @@ typedef struct  PolynomialListNodeType
 typedef struct PolynomialListType
 {
 	int	currentElementCount;		// ���� ����� ������ ����
-	PolynomialListNode	headerNode;		// ��� ���(Header Node)
+	PolynomialListNode	*headerNode;		// ��� ���(Header Node)
 } PolynomialList;
 
 PolynomialList* createPolynomialList(void);
@@ -26,6 +27,9 @@ PolynomialListNode* getPLElement(PolynomialList* pList, int position);
 void displayPolynomialList(PolynomialList* pList);
 PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char character);
 
+int removePLEByDegree(PolynomialList* pList, int degree);
+PolynomialListNode* getPLElementByDegree(PolynomialList* pList, int degree);
+
 #endif
 
 #ifndef _COMMON_LIST_DEF_
@@ -35,5 +39,9 @@ PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char chara
 #define FALSE		0
 #define FLAG_ADD	2
 #define FLAG_OTHER	4
+#define NONE_CHARACTER ' '
+
+#define OPERATOR_PLUS 8
+#define OPERATOR_MINUS 16
 
 #endif // _PolynomialList_
