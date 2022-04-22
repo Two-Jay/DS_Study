@@ -8,7 +8,7 @@ OBJDIR			= ./obj/
 SRCDIR			= ./src/
 DEBUG			= -g3 -fsanitize=address
 MAIN			= main.c
-SRCS			= polynomialList.c
+SRCS			= polynomialList.c parser.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))

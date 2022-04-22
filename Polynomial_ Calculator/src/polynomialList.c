@@ -11,13 +11,22 @@ PolynomialList* createPolynomialList(void) {
     return !ret ? NULL : ret;
 }
 
+PolynomialListNode* copyPolynomialListNode(PolynomialListNode *other) {
+    PolynomialListNode *ret = (PolynomialListNode *)calloc(sizeof(PolynomialListNode), 1);
+    ret->Coefficient = other->Coefficient;
+    ret->character = other->character; 
+    ret->sign = other->sign;
+    ret->degree = other->degree;
+    return ret;
+}
+
 PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char character) {
     PolynomialListNode *ret = (PolynomialListNode *)calloc(sizeof(PolynomialListNode), 1);
     if (!ret) return NULL;
     ret->Coefficient = Coefficient;
     ret->sign = 1;
     if (Coefficient < 0) {
-        ret->Coefficient * -1;
+        ret->Coefficient *= -1;
         ret->sign = -1;
     }
     ret->degree = degree;
@@ -25,8 +34,15 @@ PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char chara
     return ret;
 }
 
-PolynomialListNode *mergePolynomialNode(PolynomialListNode* a,PolynomialListNode* b) {
-    
+PolynomialListNode *mergePolynomialNode(PolynomialListNode* a, PolynomialListNode* b) {
+    if (a->character != b->character) return FALSE;
+    PolynomialListNode *ret = copyPolynomialListNode(a);
+    if (b->sign == -1)  ret->Coefficient = ret->Coefficient - b->Coefficient;
+    if (ret->Coefficient < 0) {
+        ret->Coefficient *= -1;
+        ret->sign = -1;
+    }
+    return ret;
 }
 
 PolynomialListNode* getDLLLastNode(PolynomialList* pList) {

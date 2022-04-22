@@ -26,9 +26,13 @@ int getPolynomialListLength(PolynomialList* pList);
 PolynomialListNode* getPLElement(PolynomialList* pList, int position);
 void displayPolynomialList(PolynomialList* pList);
 PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char character);
+PolynomialListNode *mergePolynomialNode(PolynomialListNode* a, PolynomialListNode* b);
+PolynomialListNode* copyPolynomialListNode(PolynomialListNode *other);
 
 int removePLEByDegree(PolynomialList* pList, int degree);
 PolynomialListNode* getPLElementByDegree(PolynomialList* pList, int degree);
+//int sortbydegree(PolynomialList* pList);
+
 
 #endif
 
@@ -40,8 +44,5 @@ PolynomialListNode* getPLElementByDegree(PolynomialList* pList, int degree);
 #define FLAG_ADD	2
 #define FLAG_OTHER	4
 #define NONE_CHARACTER ' '
-
-#define OPERATOR_PLUS 8
-#define OPERATOR_MINUS 16
 
 #endif // _PolynomialList_
