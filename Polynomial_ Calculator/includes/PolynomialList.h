@@ -3,9 +3,9 @@
 
 typedef struct  PolynomialListNodeType
 {
-	int Coefficient;
-    int degree;
-	int sign; // 1 or -1
+	int Coefficient; x^2
+    int degree; 2
+	int sign; // 1 or -1 
     char character;
 	struct PolynomialListNodeType* pLLink;
 	struct PolynomialListNodeType* pRLink;
@@ -25,6 +25,8 @@ void clearPolynomialList(PolynomialList* pList);
 int getPolynomialListLength(PolynomialList* pList);
 PolynomialListNode* getPLElement(PolynomialList* pList, int position);
 void displayPolynomialList(PolynomialList* pList);
+
+
 PolynomialListNode *createPolynomialNode(int Coefficient, int degree, char character);
 PolynomialListNode *mergePolynomialNode(PolynomialListNode* a, PolynomialListNode* b);
 PolynomialListNode* copyPolynomialListNode(PolynomialListNode *other);

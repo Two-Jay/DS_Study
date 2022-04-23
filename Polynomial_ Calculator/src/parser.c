@@ -32,8 +32,9 @@ char *tokenizer(char *input, char *indexed, size_t i) {
 
 PolynomialListNode *createParsedNode(char *buf) {
     for (size_t i = 0, len = strlen(buf); i < len; i++) {
-        if (buf[i] == )
+        // if (buf[i] == ) /// 콰고ㅓㅏㅏㅏㅇ!!!!!!!!!!!!!!
     }
+    return NULL;
 }
 
 PolynomialList* parseExpression(char *input) {
