@@ -9,7 +9,7 @@ OBJDIR			= ./obj/
 SRCDIR			= ./src/
 DEBUG			= -g3 -fsanitize=address
 MAIN			= main.c
-SRCS			= arraylist.c linkedlist.c doublylist.c circledlist.c
+SRCS			= ALStack.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "arraylist.h": "c",
-        "doublylist.h": "c"
+        "doublylist.h": "c",
+        "llstack.h": "c"
     }
 }
