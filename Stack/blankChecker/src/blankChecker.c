@@ -19,6 +19,7 @@ static bool isTwinBlank(const char openned, const char closed) {
 bool isClosedBlank(const char *str, size_t len) {
     int ret = true;
     FixedArrayStack *fas = createFixedArrayStack(len);
+    if (!fas) return false;
     FASNode *nptr;
     for (size_t i = 0; i < len && ret == true; i++) {
         if (isOpenerBlank(str[i]) == true) {
