@@ -7,5 +7,8 @@
 char *convertInfixToPostFix(const char *expression, size_t expression_len);
 bool isClosedBlank(const char *str, size_t len);
 
+// bool isOpenerBlank(const char input);
+// bool isCloserBlank(const char input);
+// bool isTwinBlank(const char openned, const char closed);
 
 #endif // _EXPRESSION_PARSER_
