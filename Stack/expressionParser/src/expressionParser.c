@@ -65,7 +65,6 @@ char *convertInfixToPostFix(const char *expr, size_t expr_len) {
                 free(nptr);
             }            
         }
-        printf("%s |   i %2zu|   j %2zu\n", ret, i, j);
     }
     while (peekFAS(pStack)){
         nptr = popFAS(pStack);
