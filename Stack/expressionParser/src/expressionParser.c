@@ -104,7 +104,6 @@ char *convertInfixToPostFix(const char *expr, size_t expr_len) {
     if (isClosedBlank(expr, expr_len) == false) return NULL;    // 괄호 짝 확인
     char *ret = (char *)calloc(sizeof(char), expr_len + 1);     // return buf 
     if (!ret) return NULL;
-    ret[expr_len] = '\0';
     FixedArrayStack *pStack = createFixedArrayStack(expr_len); //stack 
     if (!pStack) {
         free(ret);
@@ -116,17 +115,24 @@ char *convertInfixToPostFix(const char *expr, size_t expr_len) {
         // 숫자, 알파벳일 경우
         if (isalnum(expr[j])){
             ret[i++] = expr[j];
-        } else {
-            // 괄호랑 연산자 확인 -> push, pop 
+        } else { // 괄호랑 연산자 확인 -> push, pop
+            // 연산자일 경우
             if (isOperator(expr[j])) {
                 // 우선순위 비교
                 // pop : 우선순위 비교해서 expr[j] > pStack[top] push, else push after pop
-                if (isFixedArrayStackEmpty(pStack) == true
-                    || isSuperbOperator(expr[j], peekFAS(pStack)->data)) {
+                if (isFixedArrayStackEmpty(pStack)
+                    || isSuperbOperator(expr[j], peekFAS(pStack)->data)
+                    || peekFAS(pStack)->data == '(') {
                     nptr = createFASNode(expr[j]);
                     pushFAS(pStack, *nptr);
                     free(nptr);
                 } else {
+                    // while (isFixedArrayStackEmpty(pStack) == false
+                    //     && isSuperbOperator(expr[j], peekFAS(pStack)->data) == false) {
+                    //     nptr = popFAS(pStack);
+                    //     ret[i++] = nptr->data;
+                    //     free(nptr);
+                    // }
                     nptr = popFAS(pStack);
                     ret[i++] = nptr->data;
                     free(nptr);
@@ -134,9 +140,21 @@ char *convertInfixToPostFix(const char *expr, size_t expr_len) {
                     pushFAS(pStack, *nptr);
                     free(nptr);
                 }
+            } else if (isOpenerBlank(expr[j])) {    // 여는 괄호
+                nptr = createFASNode(expr[j]);
+                pushFAS(pStack, *nptr);
+                free(nptr);
+            } else if (isCloserBlank(expr[j])) {      // 닫는 괄호
+                while (peekFAS(pStack)->data != '(') {
+                    nptr = popFAS(pStack);
+                    ret[i++] = nptr->data;
+                    free(nptr);
+                }
+                nptr = popFAS(pStack);
+                free(nptr);
             }            
         }
-        // printf("%s |   i %2zu|   j %2zu\n", ret, i, j);
+        printf("%s |   i %2zu|   j %2zu\n", ret, i, j);
     }
     while (peekFAS(pStack)){
         nptr = popFAS(pStack);
@@ -144,6 +162,7 @@ char *convertInfixToPostFix(const char *expr, size_t expr_len) {
         // printf("stack data : %c\n", nptr->data);
         free(nptr);
     }
+    ret[i] = '\0';
     // printf("%s |   i %2zu\n", ret, i);
     return (ret);
 }
