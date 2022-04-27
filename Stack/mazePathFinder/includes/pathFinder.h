@@ -30,6 +30,11 @@ typedef struct MapPositionType
 	int direction;		// ���� ��ġ�� �̵� ����.
 } MapPosition;
 
+typedef struct MapPositionStackType {
+	int currentElementCount;
+	MapPosition *PrevSteps;
+}	MapPositionStack;
+
 typedef struct maplst {
 	char *mapline;
 	struct maplst *next;
@@ -64,7 +69,7 @@ int findPath(Data *data);
 #ifndef _MAPPARSER_TEST_FUNCTION_
 #define _MAPPARSER_TEST_FUNCTION_
 
-void test_printMaplst(MapListNode *maplst_header, int height, int width);
-void test_printMaplst_converted(int **mapMatrixt, int height, int width);
+int test_printMaplst(MapListNode *maplst_header, int height, int width);
+int test_printMapMatrix(int **mapMatrixt, int height, int width);
 
 #endif // _MAPPARSER_TEST_FUNCTION_

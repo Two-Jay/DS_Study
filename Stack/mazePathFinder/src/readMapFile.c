@@ -74,7 +74,6 @@ static int	convertMaplstToInt(Data *data) {
 	return CLEARY_DONE;
 }
 
-
 // 기본적으로 파서는 아래와 같이 동작합니다.
 // 0. 맵의 가로세로 길이를 모르기에 라인 하나하나씩 읽어와서 lst로 만들어줍니다.
 //      - 이 때 읽어온 맵파일의 내용은 각 라인 별로 maplst->mapline에 동적할당되어 저장됩니다.
@@ -91,7 +90,6 @@ int	parseMapfile(const char *mapfile_path, Data *data) {
     if (mapfd == -1) return ERROR;
     if (!lst) return ERROR;
 	head = lst;
-
 	while (line_check > 0) {
         // get_next_line로 맵파일을 연 fd에서 한 줄의 라인을 읽어와서, map_line에 동적할당하여 저장합니다.
 		line_check = ft_strgnl(mapfd, &map_line);

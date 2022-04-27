@@ -11,7 +11,6 @@ int main(int argc, char **argv) {
     }
     Data *data = (Data *)calloc(sizeof(data), 1);
     if (!data) return ERROR;
-    printf("inserted path : [%s] :)\n", argv[1]);
     // 이 함수에서 맵파일을 파싱합니다.
     parseMapfile(argv[1], data);
     // 우리는 이 함수를 작업하면 됩니다. :)
@@ -19,10 +18,16 @@ int main(int argc, char **argv) {
     // char * 연결리스트로 파싱해온 데이터 표준출력으로 출력
     test_printMaplst(data->maplst, data->mapHeight, data->mapWidth); 
     // char * 연결리스트로 파싱해온 데이터를 int **으로 변환한 매트릭스를 표준출력으로 출력
-    test_printMaplst_converted(data->mapMatrix, data->mapHeight, data->mapWidth);    
+    test_printMapMatrix(data->mapMatrix, data->mapHeight, data->mapWidth);    
     // 동적할당 했던 data 오브젝트를 해제해줍니다.
     freeData(data);
     // 메모리 릭 체크
+
+    // 중간에 에러가 생길시 진행을 중지하기 위해, 실제로는 아래와 같이 진행합니다. 테스트 함수는 제외했습니다.
+    // if (parseMapfile(argv[1], data)
+    //     || findPath(data)
+    //     || freeData(data))
+    //     return ERROR;
     system("leaks mazePathFinder");
     return CLEARY_DONE;
 }

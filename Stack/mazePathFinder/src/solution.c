@@ -1,6 +1,6 @@
 #include "../includes/pathFinder.h"
 
-void printSolution(int **mapMatrixt, int height, int width) {
+int printSolution(int **mapMatrixt, int height, int width) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (mapMatrixt[i][j] == MAPTILE_PASSED) printf("🟩");
@@ -11,6 +11,7 @@ void printSolution(int **mapMatrixt, int height, int width) {
         }
 	}
     printf("map height : %d, map width : %d\n", height, width);
+    return CLEARY_DONE;
 }
 
 // 해당 함수에서는 data 오브젝트를 받아 모든 자원을 활용할 수 있도록 했습니다.
@@ -19,7 +20,6 @@ void printSolution(int **mapMatrixt, int height, int width) {
 // 우리는 여기서의 계산 결과를 토대로 data->mapMatrix의 정보를 변환한 후에
 // 아래의 프린트 함수로 찾은 길에 대한 정보를 띄워보려고 합니다.
 int findPath(Data *data) {
-    printSolution(data->mapMatrix, data->mapHeight, data->mapWidth);
-    return CLEARY_DONE;
+    return printSolution(data->mapMatrix, data->mapHeight, data->mapWidth);
 };
 
