@@ -3,10 +3,16 @@
 #include <stdio.h>
 #include <string.h>
 
+int error_return(const char *error_msg, int flag) {
+    if (flag & ERROR_END_ARGC) printf("Usage './mazePathFinder [mapfile_path]\n");
+    else printf("Error : %s\n", error_msg);
+    return ERROR;
+}
+
 int main(int argc, char **argv) {
     // 기본적인 입력과 data 오브젝트 할당 및 널가드 예외처리
     if (argc != 2) {
-        printf("Usage : './mazePathFinder [mapfile_path]\n");
+        printf("Usage './mazePathFinder [mapfile_path]\n");
         return ERROR;
     }
     Data *data = (Data *)calloc(sizeof(data), 1);
@@ -24,10 +30,12 @@ int main(int argc, char **argv) {
     // 메모리 릭 체크
 
     // 중간에 에러가 생길시 진행을 중지하기 위해, 실제로는 아래와 같이 진행합니다. 테스트 함수는 제외했습니다.
-    // if (parseMapfile(argv[1], data)
+    // if (argc != 2) return error_return(NULL, ERROR_END_ARGC);
+    // if (!(data = (Data *)calloc(sizeof(data), 1))
+    //     || parseMapfile(argv[1], data)
     //     || findPath(data)
     //     || freeData(data))
-    //     return ERROR;
+    //     return error_return("an error occured");
     system("leaks mazePathFinder");
     return CLEARY_DONE;
 }

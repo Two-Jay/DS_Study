@@ -64,6 +64,9 @@ int findPath(Data *data);
 #define MAPTILE_WALL 1
 #define MAPTILE_SPACE 0
 
+#define ERROR_END_ARGC 2
+#define ERROR_END_MAIN 4
+
 #endif // _MAPFILE_ALIAS_
 
 #ifndef _MAPPARSER_TEST_FUNCTION_
