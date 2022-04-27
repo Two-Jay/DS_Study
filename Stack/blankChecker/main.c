@@ -48,6 +48,7 @@ int main(void) {
     testSpace("(1234", false);
     testSpace("(1234)", true);
     testSpace("1234)", false);
+    testSpace("Hello World !", true);
     testSpace("1{23}4", true);
     testSpace("{123}4", true);
     testSpace("1{234", false);
@@ -55,6 +56,7 @@ int main(void) {
     testSpace("[1234]", true);
     testSpace("1234]", false);
     testSpace("[1234", false);
+    testSpace("2022-04-26 (Thus)", true);
     testSpace("1(23}4", false);
     testSpace("1(2]3}4", false);
     testSpace("[1(23}4]", false);
