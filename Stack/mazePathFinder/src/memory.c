@@ -20,7 +20,7 @@ void freeMapMatrix(Data *data) {
     free(data->mapMatrix);
 };
 
-
+// 동적할당된 data 오브젝트와 내부의 리스트와 그 멤버변수인 mapline, int **매트릭스 모두 프리하는 함수입니다.
 int freeData(Data *data) {
     freeMaplist(data);
     freeMapMatrix(data);
