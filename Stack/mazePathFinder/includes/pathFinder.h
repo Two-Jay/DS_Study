@@ -8,6 +8,10 @@
 
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "linkedstack.h"
 
 // offset: x, y
 static int DIRECTION_OFFSETS[NUM_DIRECTIONS][2] = {
@@ -28,19 +32,39 @@ typedef struct MapPositionType
 
 typedef struct maplst {
 	char *mapline;
-	struct maplst	*next;
+	struct maplst *next;
 }	MapListNode;
 
-typedef struct d {
+typedef struct Data {
     int **mapMatrix;
 	MapListNode *maplst;
     int mapWidth;
     int mapHeight;
 }   Data;
 
-int	parseMapfile(int map_fd, Data *data);
+int	parseMapfile(const char *mapfile_path, Data *data);
+int	ft_strgnl(int fd, char **line);
+int freeData(Data *data);
+int findPath(Data *data);
 
-#define ERROR 1;
-#define CLEARY_DONE 0;
+#endif // _MAP_DEF_
 
-#endif
+#ifndef _MAPFILE_ALIAS_
+#define _MAPFILE_ALIAS_
+
+#define ERROR 1
+#define CLEARY_DONE 0
+
+#define MAPTILE_PASSED 2
+#define MAPTILE_WALL 1
+#define MAPTILE_SPACE 0
+
+#endif // _MAPFILE_ALIAS_
+
+#ifndef _MAPPARSER_TEST_FUNCTION_
+#define _MAPPARSER_TEST_FUNCTION_
+
+void test_printMaplst(MapListNode *maplst_header, int height, int width);
+void test_printMaplst_converted(int **mapMatrixt, int height, int width);
+
+#endif // _MAPPARSER_TEST_FUNCTION_

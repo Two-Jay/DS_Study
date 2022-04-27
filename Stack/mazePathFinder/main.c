@@ -1,13 +1,28 @@
-#include "./includes/linkedstack.h"
+
+#include "./includes/pathFinder.h"
 #include <stdio.h>
 #include <string.h>
 
 int main(int argc, char **argv) {
-    Data *data;
-
-    if (argc != 2) return 0;
+    // 기본적인 입력과 data 오브젝트 할당 및 널가드 예외처리
+    if (argc != 2) {
+        printf("Usage : './mazePathFinder [mapfile_path]\n");
+        return ERROR;
+    }
+    Data *data = (Data *)calloc(sizeof(data), 1);
+    if (!data) return ERROR;
     printf("inserted path : [%s] :)\n", argv[1]);
-    parseMapFile(data, argv[1]);
-    findPath(Data);
-    return 0;
+    // 이 함수에서 맵파일을 파싱합니다.
+    parseMapfile(argv[1], data);
+    // 우리는 이 함수를 작업하면 됩니다. :)
+    findPath(data);
+    // char * 연결리스트로 파싱해온 데이터 표준출력으로 출력
+    test_printMaplst(data->maplst, data->mapHeight, data->mapWidth); 
+    // char * 연결리스트로 파싱해온 데이터를 int **으로 변환한 매트릭스를 표준출력으로 출력
+    test_printMaplst_converted(data->mapMatrix, data->mapHeight, data->mapWidth);    
+    // 동적할당 했던 data 오브젝트를 해제해줍니다.
+    freeData(data);
+    // 메모리 릭 체크
+    system("leaks mazePathFinder");
+    return CLEARY_DONE;
 }

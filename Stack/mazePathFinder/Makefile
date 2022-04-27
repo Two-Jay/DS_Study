@@ -7,9 +7,9 @@ INCLUDE			= -I./includes/
 RM				= rm -rf
 OBJDIR			= ./obj/
 SRCDIR			= ./src/
-DEBUG			= -g3 -fsanitize=address
+DEBUG			= -g3
 MAIN			= main.c
-SRCS			= linkedstack.c darraystack.c farraystack.c
+SRCS			= linkedstack.c darraystack.c farraystack.c readMapfile.c utils.c memory.c test.c solution.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))
@@ -23,21 +23,14 @@ objd_build:
 				mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o : ./%.c
-				$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
+				$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) $< -c -o $@
 
 $(OBJDIR)%.o : $(SRCDIR)%.c
-				$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
+				$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) $< -c -o $@
 
 $(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
-				$(CC) $(CFLAGS) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
-				@echo "\033[0;92m* $(NAME) was created *\033[0m"
-
-debug:			objd_build	$(NAME)
-
-$(DNAME):		$(SRCS_OBJS) $(MAIN_OBJS)
 				$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
 				@echo "\033[0;92m* $(NAME) was created *\033[0m"
-
 clean:
 				@$(RM) $(OBJDIR)
 				@$(RM) $(OBJS)
