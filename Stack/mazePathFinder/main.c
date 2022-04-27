@@ -27,7 +27,6 @@ int main(int argc, char **argv) {
     test_printMapMatrix(data->mapMatrix, data->mapHeight, data->mapWidth);    
     // 동적할당 했던 data 오브젝트를 해제해줍니다.
     freeData(data);
-    // 메모리 릭 체크
 
     // 중간에 에러가 생길시 진행을 중지하기 위해, 실제로는 아래와 같이 진행합니다. 테스트 함수는 제외했습니다.
     // if (argc != 2) return error_return(NULL, ERROR_END_ARGC);
