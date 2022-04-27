@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     //     || parseMapfile(argv[1], data)
     //     || findPath(data)
     //     || freeData(data))
-    //     return error_return("an error occured");
+    //     return error_return("an error occured", ERROR_END_MAIN);
     system("leaks mazePathFinder");
     return CLEARY_DONE;
 }
