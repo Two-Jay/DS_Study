@@ -22,10 +22,16 @@ static int DIRECTION_OFFSETS[NUM_DIRECTIONS][2] = {
 	{-1, 0}			// �������� �̵�.
 };
 
+#define WEST 0
+#define SOUTH 1
+#define EAST 2
+#define NORTH 3
+
+
 enum PosStatus { NOT_VISIT = 0, WALL = 1 , VISIT = 2  };
 
-typedef struct MapPositionType
-{
+// 캐릭터...
+typedef struct MapPositionType {
 	int x;				// ���� ��ġ x��ǥ.
 	int y;				// ���� ��ġ y��ǥ.
 	int direction;		// ���� ��ġ�� �̵� ����.

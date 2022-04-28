@@ -26,7 +26,7 @@ int **copyMapMatrix(int **mapMatrix, int h, int w) {
     ret[h] = NULL;
     for (int i = 0; i < h; i++){
         ret[i] = (int *)calloc(sizeof(int *), (w + 1));
-        if (!ret[i]) return freeMapMatrix(ret);
+        if (!ret[i]) return freeMapMatrix(ret), NULL;
         ret[i][w] = '\0';
         for (int j = 0; j < w; j++) {
             ret[i][j] = mapMatrix[i][j];
@@ -35,15 +35,36 @@ int **copyMapMatrix(int **mapMatrix, int h, int w) {
     return ret;
 }
 
-bool isArrive(int x, int y) {
+bool isArrive(int x, int y, Data *data) {
     return ((x == data->mapHeight) && (y == data->mapWidth));
 }
 
-// data->mapMatrix 이중배열은 [세로길이][가로길이]이다.
+bool move(MapPosition *player, int *drct_set) {
+    player->x += drct_set[1];
+    player->y += drct_set[0];
+    return true;
+}
 
+MapPosition *initPlayer(void) {
+    MapPosition *ret = (MapPosition *)calloc(sizeof(MapPosition), 1);
+    if (!ret) return NULL;
+    ret->x = 0;
+    ret->y = 0;
+    ret->direction = 0;
+    return ret;
+}
+
+// data->mapMatrix 이중배열은 [세로길이][가로길이]이다.
 // 0,0 > x, y
 int findPath(Data *data) {
     int **map = copyMapMatrix(data->mapMatrix, data->mapHeight, data->mapWidth);
+    MapPosition *player = initPlayer();
+    move(player, DIRECTION_OFFSETS[EAST]);
+    move(player, DIRECTION_OFFSETS[SOUTH]);
+    move(player, DIRECTION_OFFSETS[NORTH]);
+    move(player, DIRECTION_OFFSETS[WEST]);
+    printf("player's position : (%d,%d) \n", player->y, player->x);
+    free(player);
     freeMapMatrix(map);
     return printSolution(data->mapMatrix, data->mapHeight, data->mapWidth);
 };

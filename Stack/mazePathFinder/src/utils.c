@@ -40,7 +40,7 @@ static int	ft_dequeue_text(int fd, char *lon, char **queue, char **line) {
 		tmp_ptr = 0;
 		return GNL_NORMAL_DONE;
 	}
-	// 개행이 있을때 "ㅇㄴㅁㅇㄴㅁㅇㅁㄴ\nㅇㄴㅁㅇㅁㄴ"
+	// 개행이 없을때 "ㅇㄴㅁㅇㄴㅁㅇㅁㄴ\0"
 	else if (*lon == '\0') {
 		*line = strdup(queue[fd]);
 		ft_free_queue(fd, queue);
