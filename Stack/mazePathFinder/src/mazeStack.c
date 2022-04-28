@@ -11,22 +11,22 @@ MazeStepStack *createMazeStepStack(void) {
     return ret;
 }
 
-MazeStepNode *createMazeStepNode(int x, int y, int direction) {
+MazeStepNode *createMazeStepNode(int y, int x) {
     MazeStepNode *ret = (MazeStepNode *)calloc(sizeof(MazeStepNode), 1);
     if (!ret) return NULL;
     ret->x = x;
     ret->y = y;
-    ret->direction = direction;
     return ret;
 }
 
-void pushMazeStack(MazeStepStack *pStack, MazeStepNode *element) {
+void pushMazeStack(MazeStepStack *pStack, MazeStepNode element) {
+    MazeStepNode *pNewNode = createMazeStepNode(element.y, element.x);
     if (isMazeStepStackEmpty(pStack) == true) {
-        pStack->PrevSteps = element;
+        pStack->PrevSteps = pNewNode;
         pStack->currentElementCount++;
     } else {
-        element->pLink = pStack->PrevSteps;
-        pStack->PrevSteps = element;
+        pNewNode->pLink = pStack->PrevSteps;
+        pStack->PrevSteps = pNewNode;
         pStack->currentElementCount++;
     }
 }
@@ -55,4 +55,8 @@ MazeStepNode *peekMazeStepStack(MazeStepStack *pStack) {
 
 bool isMazeStepStackEmpty(MazeStepStack *pStack) {
     return pStack->currentElementCount == 0;
+}
+
+int getSizeMazeStack(MazeStepStack *pStack) {
+    return pStack->currentElementCount;
 }

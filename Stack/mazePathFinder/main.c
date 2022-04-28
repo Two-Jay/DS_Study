@@ -36,6 +36,5 @@ int main(int argc, char **argv) {
         || findPath(data)
         || freeData(data))
         return error_return("an error occured", ERROR_END_MAIN);
-    system("leaks mazePathFinder");
     return CLEARY_DONE;
 }

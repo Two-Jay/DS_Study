@@ -56,7 +56,7 @@ static int	append_mapdata_lst(char *line, MapListNode *lst, int *map_height) {
 	if (!(temp = (MapListNode *)calloc(sizeof(MapListNode), 1))) return ERROR;
 	temp->mapline = strdup(line);
     lst->next = temp;
-    if (strlen(temp->mapline)) *map_height += 1;
+	*map_height += 1;
     return (CLEARY_DONE);
 }
 
@@ -96,16 +96,15 @@ int	parseMapfile(const char *mapfile_path, Data *data) {
         // get_next_line로 맵파일을 연 fd에서 한 줄의 라인을 읽어와서, map_line에 동적할당하여 저장합니다.
 		line_check = ft_strgnl(mapfd, &map_line);
         // map_line 저장한 라인을 리스트에 저장하기 위해 노드를 동적할당하여 lst 뒤에 붙여줍니다. 에러시 리턴
-		if (append_mapdata_lst(map_line, lst, &(data->mapHeight))) return ERROR;
+		if (strlen(map_line))
+			if (append_mapdata_lst(map_line, lst, &(data->mapHeight))) return ERROR;
         // 다음노드로 포인트 조정
         lst = lst->next;
         // get_next_line에서 동적할당으로 받아온 라인 free
         free(map_line);
 	}
-    // 반복문이 끝났을 시 마지막 라인을 받아옵니다. 위의 연산을 마지막으로 한 번 더 해줍니다.
-    if (append_mapdata_lst(map_line, lst, &(data->mapHeight))) return ERROR;
 	// 저장한 헤더의 정보 set, data->mapWidth에 맵의 넓이를 구해서 저장합니다.
-    data->maplst = head;
+	data->maplst = head;
 	data->mapWidth = get_max_width_mapdata(data);
     // data->maplst를 int ** 기반의 mapMatrix로 변환합니다.
     convertMaplstToInt(data);

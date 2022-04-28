@@ -15,18 +15,17 @@
 #include "mazeStack.h"
 
 // offset: x, y
-static int DIRECTION_OFFSETS[NUM_DIRECTIONS][2] = {
+static int DIRECTION[NUM_DIRECTIONS][2] = {
 	{0, -1},		// �������� �̵�.
 	{1, 0},			// ���������� �̵�.
 	{0, 1},			// �Ʒ������� �̵�.
 	{-1, 0}			// �������� �̵�.
 };
 
-#define WEST 0
-#define SOUTH 1
-#define EAST 2
-#define NORTH 3
-
+#define WEST 3
+#define SOUTH 2
+#define EAST 1
+#define NORTH 0
 
 enum PosStatus { NOT_VISIT = 0, WALL = 1 , VISIT = 2  };
 

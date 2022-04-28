@@ -3,8 +3,8 @@
 void freeMaplist(Data *data) {
     MapListNode *nptr = data->maplst;
     MapListNode *tmp;
-    // 헤더노드와, 마지막 EOF처리가 된 노드도 긁어오기에 노드를 2개 더 해제해주어야 함
-    int limit = data->mapHeight + 2;
+    // 헤더노드 프리를 위해 노드를 1개 더 해제해주어야 함
+    int limit = data->mapHeight + 1;
     for (int i = 0; i < limit; i++) {
         tmp = nptr->next;
         if (i != 0) free(nptr->mapline);
