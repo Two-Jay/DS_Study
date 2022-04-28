@@ -26,6 +26,9 @@ static int DIRECTION[NUM_DIRECTIONS][2] = {
 #define SOUTH 2
 #define EAST 1
 #define NORTH 0
+//    0
+// 3     1
+//    2
 
 enum PosStatus { NOT_VISIT = 0, WALL = 1 , VISIT = 2  };
 

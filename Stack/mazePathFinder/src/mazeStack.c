@@ -3,11 +3,6 @@
 MazeStepStack *createMazeStepStack(void) {
     MazeStepStack *ret = (MazeStepStack *)calloc(sizeof(MazeStepStack), 1);
     if (!ret) return NULL;
-    ret->PrevSteps = (MazeStepNode *)calloc(sizeof(MazeStepNode), 1);
-    if (!ret->PrevSteps) {
-        free(ret);
-        return NULL;
-    }
     return ret;
 }
 
