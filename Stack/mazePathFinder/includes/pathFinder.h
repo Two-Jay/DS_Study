@@ -7,11 +7,12 @@
 #define NUM_DIRECTIONS 4
 
 #include <unistd.h>
+#include <stdbool.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedstack.h"
+#include "mazeStack.h"
 
 // offset: x, y
 static int DIRECTION_OFFSETS[NUM_DIRECTIONS][2] = {
@@ -29,11 +30,6 @@ typedef struct MapPositionType
 	int y;				// ���� ��ġ y��ǥ.
 	int direction;		// ���� ��ġ�� �̵� ����.
 } MapPosition;
-
-typedef struct MapPositionStackType {
-	int currentElementCount;
-	MapPosition *PrevSteps;
-}	MapPositionStack;
 
 typedef struct maplst {
 	char *mapline;

@@ -9,7 +9,7 @@ OBJDIR			= ./obj/
 SRCDIR			= ./src/
 DEBUG			= -g3
 MAIN			= main.c
-SRCS			= linkedstack.c darraystack.c farraystack.c readMapfile.c utils.c memory.c test.c solution.c
+SRCS			= readMapfile.c utils.c memory.c test.c solution.c mazeStack.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))
