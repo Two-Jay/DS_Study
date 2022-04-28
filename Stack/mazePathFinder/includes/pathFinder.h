@@ -46,6 +46,7 @@ typedef struct Data {
 int	parseMapfile(const char *mapfile_path, Data *data);
 int	ft_strgnl(int fd, char **line);
 int freeData(Data *data);
+int freeMapMatrix(int **map);
 int findPath(Data *data);
 
 #endif // _MAP_DEF_

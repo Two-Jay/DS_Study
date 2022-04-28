@@ -13,17 +13,18 @@ void freeMaplist(Data *data) {
     }
 };
 
-void freeMapMatrix(Data *data) {
-    for (int i = 0; i < data->mapHeight; i++) {
-        free(data->mapMatrix[i]);
+int freeMapMatrix(int **map) {
+    for (int i = 0; *(map + i); i++) {
+        free(map[i]);
     }
-    free(data->mapMatrix);
+    free(map);
+    return 0;
 };
 
 // 동적할당된 data 오브젝트와 내부의 리스트와 그 멤버변수인 mapline, int **매트릭스 모두 프리하는 함수입니다.
 int freeData(Data *data) {
     freeMaplist(data);
-    freeMapMatrix(data);
+    freeMapMatrix(data->mapMatrix);
     free(data);
     data = NULL;
     return CLEARY_DONE;

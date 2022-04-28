@@ -53,15 +53,17 @@ static int	get_max_width_mapdata(Data *data) {
 static int	append_mapdata_lst(char *line, MapListNode *lst, int *map_height) {
 	MapListNode	*temp;
 
-	if (!(temp = (MapListNode *)malloc(sizeof(MapListNode)))) return ERROR;
+	if (!(temp = (MapListNode *)calloc(sizeof(MapListNode), 1))) return ERROR;
 	temp->mapline = strdup(line);
     lst->next = temp;
     if (strlen(temp->mapline)) *map_height += 1;
     return (CLEARY_DONE);
 }
 
+// 형변환 해주는 함수
+// char *lst... -> int **array
 static int	convertMaplstToInt(Data *data) {
-	int				**ret = (int **)malloc(sizeof(int *) * (data->mapHeight + 1));
+	int				**ret = (int **)calloc(sizeof(int *), (data->mapHeight + 1));
 	MapListNode	*lst = data->maplst->next;
 
 	if (!ret) return ERROR;

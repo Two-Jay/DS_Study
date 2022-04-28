@@ -30,6 +30,7 @@ static char	*ft_addback_str(char *s1, char *s2) {
 static int	ft_dequeue_text(int fd, char *lon, char **queue, char **line) {
 	char	*tmp_ptr = 0;
 
+	// 개행이 있을때 "ㅇㄴㅁㅇㄴㅁㅇㅁㄴ\nㅇㄴㅁㅇㅁㄴ"
 	if (*lon == '\n') {
 		*lon = '\0';
 		tmp_ptr = queue[fd];
@@ -39,6 +40,7 @@ static int	ft_dequeue_text(int fd, char *lon, char **queue, char **line) {
 		tmp_ptr = 0;
 		return GNL_NORMAL_DONE;
 	}
+	// 개행이 있을때 "ㅇㄴㅁㅇㄴㅁㅇㅁㄴ\nㅇㄴㅁㅇㅁㄴ"
 	else if (*lon == '\0') {
 		*line = strdup(queue[fd]);
 		ft_free_queue(fd, queue);
