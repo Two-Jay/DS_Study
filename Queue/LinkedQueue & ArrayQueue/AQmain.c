@@ -39,7 +39,6 @@ bool testfield(void) {
             break ;
         }
     }        
-    
     deleteArrayQueue(qptr);
     return true;
 }

@@ -1,5 +1,5 @@
-NAME			= queueTester
-DNAME			= test_debug
+AQNAME			= queueTester_aq
+LQNAME			= queueTester_lq
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 INCLUDE			= -I./includes/
@@ -7,16 +7,20 @@ RM				= rm -rf
 OBJDIR			= ./obj/
 SRCDIR			= ./srcs/
 DEBUG			= -g3 -fsanitize=address
-MAIN			= main.c
-SRCS			= arrayQueue.c
+AQMAIN			= AQmain.c
+LQMAIN			= LQmain.c
+SRCS			= arrayQueue.c linkedDeque.c
 
-MAIN_OBJS_FILE	= $(MAIN:.c=.o)
-MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))
+AQMAIN_OBJS_FILE= $(AQMAIN:.c=.o)
+AQMAIN_OBJS		= $(addprefix $(OBJDIR), $(AQMAIN_OBJS_FILE))
+
+LQMAIN_OBJS_FILE= $(LQMAIN:.c=.o)
+LQMAIN_OBJS		= $(addprefix $(OBJDIR), $(LQMAIN_OBJS_FILE))
 
 SRCS_OBJS_FILE	= $(SRCS:.c=.o)
 SRCS_OBJS		= $(addprefix $(OBJDIR), $(SRCS_OBJS_FILE))
 
-all:			objd_build	$(NAME)
+aq:			objd_build	$(AQNAME)
 
 objd_build:
 				mkdir -p $(OBJDIR)
@@ -27,15 +31,25 @@ $(OBJDIR)%.o : ./%.c
 $(OBJDIR)%.o : $(SRCDIR)%.c
 				$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
 
-$(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
-				$(CC) $(CFLAGS) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
-				@echo "\033[0;92m* $(NAME) was created *\033[0m"
+$(AQNAME):		$(SRCS_OBJS) $(AQMAIN_OBJS)
+				$(CC) $(CFLAGS) $(INCLUDE) $(AQMAIN_OBJS) $(SRCS_OBJS) -o $(AQNAME)
+				@echo "\033[0;92m* $(AQNAME) was created *\033[0m"
 
-debug:			objd_build	$(NAME)
+lq:			objd_build	$(LQNAME)
 
-$(DNAME):		$(SRCS_OBJS) $(MAIN_OBJS)
-				$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
-				@echo "\033[0;92m* $(NAME) was created *\033[0m"
+objd_build:
+				mkdir -p $(OBJDIR)
+
+$(OBJDIR)%.o : ./%.c
+				$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
+
+$(OBJDIR)%.o : $(SRCDIR)%.c
+				$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
+
+$(LQNAME):		$(SRCS_OBJS) $(LQMAIN_OBJS)
+				$(CC) $(CFLAGS) $(INCLUDE) $(LQMAIN_OBJS) $(SRCS_OBJS) -o $(LQNAME)
+				@echo "\033[0;92m* $(LQNAME) was created *\033[0m"
+
 
 clean:
 				@$(RM) $(OBJDIR)
@@ -43,12 +57,7 @@ clean:
 
 fclean:			
 				@$(MAKE) clean
-				@$(RM) $(NAME)
-				@echo "\033[0;91m* $(NAME) was removed *\033[0m"
+				@$(RM) $(LQNAME) $(AQNAME)
+				@echo "\033[0;91m* all testers was removed *\033[0m"
 
-re:				
-				@$(MAKE) fclean
-				@$(MAKE) all
-
-
-.PHONY:			all clean fclean re bonus
+.PHONY:			all clean fclean
