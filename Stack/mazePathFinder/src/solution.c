@@ -152,7 +152,7 @@ void showSolutionPath(Data *data, MazeStepStack *pStack) {
 int findPath(Data *data) {
     // 출발점과 도착점에 벽이 있다면 에러로 리턴합니다.
     if (data->mapMatrix[0][0] == MAPTILE_WALL
-        && data->mapMatrix[data->mapHeight - 1][data->mapWidth - 1])
+        || data->mapMatrix[data->mapHeight - 1][data->mapWidth - 1] == MAPTILE_WALL)
         return ERROR;
     // 탐색 목적으로 복사할 int **맵, 탐색의 주체인 player, 탐색한 스텝을 저장하기 위한 스텍을 동적할당합니다.
     // 동적할당에 실패할 경우, 모두 프리해주고 에러를 리턴합니다.
