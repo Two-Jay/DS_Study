@@ -3,9 +3,9 @@
 
 typedef struct  PolynomialListNodeType
 {
-	int Coefficient; x^2
-    int degree; 2
-	int sign; // 1 or -1 
+	int Coefficient; 	//x^2
+    int degree; 		//2
+	int sign; 			// 1 or -1 
     char character;
 	struct PolynomialListNodeType* pLLink;
 	struct PolynomialListNodeType* pRLink;

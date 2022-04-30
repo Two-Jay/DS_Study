@@ -4,13 +4,15 @@ CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 
 INCLUDE			= -I./includes/
+LIBFLAG			= -I../includes/ -L./
 RM				= rm -rf
 OBJDIR			= ./obj/
 SRCDIR			= ./src/
-LIBDIR			= ./expressionParser
+LIBDIR			= ../
 DEBUG			= -g3 -fsanitize=address
 MAIN			= main.c
-SRCS			= 
+TLIBNAME		= libexpr.a
+SRCS			= tester.c
 
 MAIN_OBJS_FILE	= $(MAIN:.c=.o)
 MAIN_OBJS		= $(addprefix $(OBJDIR), $(MAIN_OBJS_FILE))
@@ -29,10 +31,13 @@ $(OBJDIR)%.o : ./%.c
 $(OBJDIR)%.o : $(SRCDIR)%.c
 				$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
 
-$(NAME):		$(SRCS_OBJS) $(MAIN_OBJS)
-				@$(MAKE) -C $(LIBDIR)
-				@$(CC) $(CFLAGS) $(INCLUDE) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
+$(NAME):		$(SRCS_OBJS) $(MAIN_OBJS) $(TLIBNAME)
+				@$(CC) $(CFLAGS) $(INCLUDE) $(LIBFLAG) -l$(TLIBNAME) $(MAIN_OBJS) $(SRCS_OBJS) -o $(NAME)
 				@echo "\033[0;92m* $(NAME) was created *\033[0m"
+
+$(TLIBNAME):	
+				@$(MAKE) -C $(LIBDIR)
+				@cp ../libexpr.a ./
 
 debug:			objd_build	$(NAME)
 

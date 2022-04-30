@@ -51,7 +51,6 @@ void deleteFixedArrayStack(FixedArrayStack* pStack) {
     free(pStack);
 }
 
-
 int isFixedArrayStackFull(FixedArrayStack* pStack) {
     return pStack->currentElementCount == pStack->maxElementCount ? TRUE : FALSE;
 }
