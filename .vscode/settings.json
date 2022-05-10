@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "arraylist.h": "c",
-        "doublylist.h": "c",
-        "llstack.h": "c",
-        "expressionparser.h": "c",
-        "farraystack.h": "c"
-    }
-}

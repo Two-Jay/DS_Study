@@ -5,6 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-bool testfield(const char *input, const bool expected)
+bool testfield(const char *input, const bool expected);
 
 #endif // _TESTER_H_
